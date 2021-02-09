@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,55 +11,22 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, CarRentSystemContext>, ICarDal
     {
-        public void Add(Car entity)
-        {
-            using (CarRentSystemContext context =new CarRentSystemContext())
-            {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
+        public List<CarDetailDto> GetCarDetails()
         {
             using (CarRentSystemContext context = new CarRentSystemContext())
             {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
+                var result = from c in context.Cars
+                             join b in context.Brands
+                             on c.BrandID equals b.BrandID
+                             join d in context.Colors
+                             on c.ColorID equals d.ColorID
+                             select new CarDetailDto { CarID = c.CarID, BrandName = b.BrandName, ColorName = d.ColorName, DailyPrice = c.DailyPrice };
+                return result.ToList();
             }
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (CarRentSystemContext context = new CarRentSystemContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (CarRentSystemContext context = new CarRentSystemContext())
-            {
-               return  filter == null 
-                    ? context.Set<Car>().ToList() 
-                    : context.Set<Car>().Where(filter).ToList();
-                
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (CarRentSystemContext context = new CarRentSystemContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
+           
+            
         }
     }
 }
