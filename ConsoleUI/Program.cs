@@ -1,20 +1,33 @@
-﻿using Business.Concrete;
+﻿
+using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using System;
 
 namespace ConsoleUI
 {
-    class Program
+     public class Program
     {
         static void Main(string[] args)
         {
-            CarTest();
-
-           
+            // CarTest();
             //BrandTest();
-        }
 
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result = userManager.GetAll();
+            if (result.Success)
+            {
+                foreach (var user in result.Data)
+                {
+                    Console.WriteLine(user.UserID + "/" + user.FirstName + "/" + user.LastName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+        }
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
