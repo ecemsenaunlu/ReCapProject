@@ -12,11 +12,13 @@ namespace Business.Constants
         public static  string MaintenanceTime ="Bakım Zamanı";
         public static string CarsListed ="Arabalar Listelendi";
         public static string UserAdded="Kullanıcı Eklendi";
-        public static string UsersListed;
-        public static string CompanyNameInvalid;
-        public static string CustomerAdded;
-        public static string ReturnDatePassed;
-        public static string RentalAdded;
-        public static string RentalsListed;
+        public static string UsersListed= "Kullanıcılar Listelendi";
+        public static string CompanyNameInvalid="geçersiz şirket adı";
+        public static string CustomerAdded = "Müşteri Eklendi";
+        public static string ReturnDatePassed="Teslim tarihi gecikti";
+        public static string RentalAdded="Kiralananlar Eklendi";
+        public static string RentalsListed= "Kiralananlar Listelendi";
+        public static string ColorsListed = "Renkler Listelendi";
+        public static string BrandsListed= "Markalar Listelendi";
     }
 }
