@@ -20,5 +20,7 @@ namespace Business.Constants
         public static string RentalsListed= "Kiralananlar Listelendi";
         public static string ColorsListed = "Renkler Listelendi";
         public static string BrandsListed= "Markalar Listelendi";
+        public static string BrandAdded = "Marka eklendi";
+        public static string ColorAdded = "renk eklendi";
     }
 }
