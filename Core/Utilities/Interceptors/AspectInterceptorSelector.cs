@@ -1,4 +1,5 @@
-﻿using Castle.DynamicProxy;
+﻿
+using Castle.DynamicProxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace Core.Utilities.Interceptors
             var methodAttributes = type.GetMethod(method.Name)
                 .GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
             classAttributes.AddRange(methodAttributes);
-          
 
             return classAttributes.OrderBy(x => x.Priority).ToArray();
         }
