@@ -9,7 +9,7 @@ namespace Core.Utilities.FileOperations
 {
     public class Operation
     {
-        public static string AddAsync(IFormFile file)
+        public static string Add(IFormFile file)
         {
             var result = newPath(file);
             try

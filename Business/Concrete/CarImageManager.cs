@@ -37,7 +37,7 @@ namespace Business.Concrete
                 return result;
             }
 
-            carImage.ImagePath = Operation.AddAsync(file);
+            carImage.ImagePath = Operation.Add(file);
             carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
             return new SuccessResult();
