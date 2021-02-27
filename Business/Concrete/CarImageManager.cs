@@ -29,8 +29,8 @@ namespace Business.Concrete
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(
-                CheckIfSameImagePath(carImage.ImagePath), CheckIfCountOfImageCorrect(carImage.ImagePath)
-                );
+                CheckIfSameImagePath(carImage.ImagePath), 
+                CheckIfCountOfImageCorrect(carImage.ImagePath));
 
             if (result != null)
             {
