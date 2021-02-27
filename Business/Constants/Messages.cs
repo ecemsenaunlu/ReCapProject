@@ -22,5 +22,12 @@ namespace Business.Constants
         public static string BrandsListed= "Markalar Listelendi";
         public static string BrandAdded = "Marka eklendi";
         public static string ColorAdded = "renk eklendi";
+        public static string CarImageAdded="araba fotoğrafı eklendi";
+        public static string CarImageListed= "araba fotoğrafı listelendi";
+        public static string CarImageCountError="Araba resim sayısı 5 ten fazla olamaz";
+        public static string ThisImageAlreadyExists="Bu resim zaten sistemde var";
+        public static string CarDeleted="Araba silindi";
+        public static string CarImageDeleted="Resim silindi";
+        public static string CarImageUpdated="Resim güncellendi";
     }
 }

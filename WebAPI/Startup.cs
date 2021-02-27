@@ -52,6 +52,7 @@ namespace WebAPI
             services.AddControllers();
             //services.AddSingleton<IUserService, UserManager>();
             //services.AddSingleton<IUserDal, EfUserDal>();
+            services.AddControllers();
 
 
         }
