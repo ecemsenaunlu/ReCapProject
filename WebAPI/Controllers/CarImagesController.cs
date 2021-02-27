@@ -60,8 +60,8 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("delete")]
-        public IActionResult Delete([FromForm(Name = ("Id"))] int Id)
+        [HttpPost("deletecarimage")]
+        public IActionResult DeleteCarImage([FromForm(Name = ("Id"))] int Id)
         {
 
             var carImage = _carImageService.GetById(Id).Data;
@@ -74,8 +74,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
-        public IActionResult Update([FromForm(Name = ("Image"))] IFormFile file, [FromForm(Name = ("Id"))] int Id)
+        [HttpPost("updatecarimage")]
+        public IActionResult UpdateCarImage([FromForm(Name = ("Image"))] IFormFile file, [FromForm(Name = ("Id"))] int Id)
         {
             var carImage = _carImageService.GetById(Id).Data;
             var result = _carImageService.Update(file, carImage);

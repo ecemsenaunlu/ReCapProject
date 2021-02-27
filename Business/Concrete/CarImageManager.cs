@@ -48,7 +48,7 @@ namespace Business.Concrete
         public IResult Update(IFormFile file, CarImage carImage)
         {
             var path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot")) + _carImageDal.Get(p => p.Id == carImage.Id).ImagePath;
-            carImage.ImagePath = Operation.UpdateAsync(path, file);
+            carImage.ImagePath = Operation.Update(path, file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
             return new SuccessResult();
@@ -60,7 +60,7 @@ namespace Business.Concrete
             var path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot")) + _carImageDal.Get(p => p.Id == carImage.Id).ImagePath;
 
             IResult result = BusinessRules.Run(
-                Operation.DeleteAsync(path));
+                Operation.Delete(path));
 
             if (result != null)
             {

@@ -30,13 +30,12 @@ namespace Core.Utilities.FileOperations
             return result.Path2;
         }
 
-        public static string UpdateAsync(string sourcePath, IFormFile file)
+        public static string Update(string sourcePath, IFormFile file)
         {
             var result = newPath(file);
 
             try
             {
-              
 
                 if (sourcePath.Length > 0)
                 {
@@ -56,7 +55,7 @@ namespace Core.Utilities.FileOperations
             return result.Path2;
         }
 
-        public static IResult DeleteAsync(string path)
+        public static IResult Delete(string path)
         {
             try
             {
