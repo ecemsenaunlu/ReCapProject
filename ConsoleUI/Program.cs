@@ -13,19 +13,6 @@ namespace ConsoleUI
             // CarTest();
             //BrandTest();
 
-            UserManager userManager = new UserManager(new EfUserDal());
-            var result = userManager.GetAll();
-            if (result.Success)
-            {
-                foreach (var user in result.Data)
-                {
-                    Console.WriteLine(user.UserID + "/" + user.FirstName + "/" + user.LastName);
-                }
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
 
         }
         private static void BrandTest()
