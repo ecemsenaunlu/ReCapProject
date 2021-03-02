@@ -25,12 +25,11 @@ namespace Business.Concrete
         {
             _carImageDal = carImageDal;
         }
+
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
-            IResult result = BusinessRules.Run(
-                CheckIfSameImagePath(carImage.ImagePath), 
-                CheckIfCountOfImageCorrect(carImage.ImagePath));
+            IResult result = BusinessRules.Run(CheckIfCountOfImageCorrect(carImage.CarId));
 
             if (result != null)
             {
@@ -47,7 +46,12 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.Id == carImage.Id).ImagePath, file);
+            IResult result = BusinessRules.Run(CheckIfCountOfImageCorrect(carImage.CarId));
+            if (result != null)
+            {
+                return result;
+            }
+            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.CarId == carImage.CarId).ImagePath, file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
             return new SuccessResult();
@@ -57,37 +61,45 @@ namespace Business.Concrete
         public IResult Delete(CarImage carImage)
         {
 
+            FileHelper.Delete(carImage.ImagePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult();
         }
+        [ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImageListed);
         }
-
+        [ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<CarImage> GetById(int carImageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == carImageId));
         }
 
 
-        private IResult CheckIfCountOfImageCorrect(string imagePath)
+        private IResult CheckIfCountOfImageCorrect(int carId)
         {
-            var result = _carImageDal.GetAll(c => c.ImagePath == imagePath).Count;
-            if (result > 5)
+            var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
+            if (result >= 5)
             {
                 return new ErrorResult(Messages.CarImageCountError);
             }
             return new SuccessResult();
         }
-        private IResult CheckIfSameImagePath(string imagePath)
+        private List<CarImage> CheckIfSameCarId(int Id)
         {
-            var result = _carImageDal.GetAll(c => c.ImagePath == imagePath).Any();
-            if (result)
+            string path = @"\Images\logo.jpg";
+            var result = _carImageDal.GetAll(c => c.CarId == Id).Any();
+            if (!result)
             {
-                return new ErrorResult(Messages.ThisImageAlreadyExists);
+                return new List<CarImage> { new CarImage { CarId = Id, ImagePath = path, Date = DateTime.Now } };
             }
-            return new SuccessResult();
+            return _carImageDal.GetAll(p => p.CarId == Id);
+        }
+        [ValidationAspect(typeof(CarImageValidator))]
+        public IDataResult<CarImage> Get(int id)
+        {
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(p => p.Id == id));
         }
     }
 

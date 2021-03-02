@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\CarImages\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
