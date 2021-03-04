@@ -67,6 +67,7 @@ namespace Business.Concrete
             _carImageDal.Delete(carImage);
             return new SuccessResult();
         }
+        
         [ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<List<CarImage>> GetAll()
         {
